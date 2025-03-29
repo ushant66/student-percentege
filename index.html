@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Detection Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .error-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Error Detection System</h1>
+        
+        <div class="error-box">
+            <h2>Input Text for Error Check</h2>
+            <textarea id="inputText" rows="5" cols="50" placeholder="Enter your text here..."></textarea>
+            <br><br>
+            <button onclick="checkErrors()">Check for Errors</button>
+            <img src"background.src" alt="C:\Users\Hp\OneDrive\Pictures\Screenshots\download.jpeg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+        </div>
+
+        <div id="results" class="error-box">
+            <h2>Results</h2>
+            <div id="errorMessages"></div>
+        </div>
+    </div>
+
+    <script>
+        function checkErrors() {
+            const text = document.getElementById('inputText').value;
+            const errorMessages = document.getElementById('errorMessages');
+            errorMessages.innerHTML = '';
+
+            // Basic error checks
+            if (text.trim() === '') {
+                displayError('Text is empty');
+                return;
+            }
+
+            // Check for common errors
+            const errors = [];
+
+            // Check for repeated words
+            const words = text.split(' ');
+            for (let i = 0; i < words.length - 1; i++) {
+                if (words[i] && words[i] === words[i + 1]) {
+                    errors.push(`Repeated word found: "${words[i]}"`);
+                }
+            }
+
+            // Check for missing punctuation at the end
+            if (!text.match(/[.!?]$/)) {
+                errors.push('Missing end punctuation');
+            }
+
+            // Check for multiple spaces
+            if (text.match(/\s{2,}/)) {
+                errors.push('Multiple consecutive spaces found');
+            }
+
+            // Display results
+            if (errors.length === 0) {
+                errorMessages.innerHTML = '<p style="color: green;">No errors found!</p>';
+            } else {
+                errors.forEach(error => {
+                    displayError(error);
+                });
+            }
+        }
+
+        function displayError(message) {
+            const errorMessages = document.getElementById('errorMessages');
+            errorMessages.innerHTML += `<p class="error-message">• ${message}</p>`;
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Grade Calculator</title>
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Grade Calculator</h2>
+        <div class="form-group">
+            <label for="math">Math Score:</label>
+            <input type="number" id="math" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <label for="science">Science Score:</label>
+            <input type="number" id="science" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <label for="english">English Score:</label>
+            <input type="number" id="english" min="0" max="100">
+        </div>
+        <button onclick="calculateGrade()">Calculate Grade</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculateGrade() {
+            const math = Number(document.getElementById('math').value);
+            const science = Number(document.getElementById('science').value);
+            const english = Number(document.getElementById('english').value);
+
+            if (isNaN(math) || isNaN(science) || isNaN(english)) {
+                alert('Please enter valid numbers');
+                return;
+            }
+
+            const average = (math + science + english) / 3;
+            let grade = '';
+
+            if (average >= 90) grade = 'A';
+            else if (average >= 80) grade = 'B';
+            else if (average >= 70) grade = 'C';
+            else if (average >= 60) grade = 'D';
+            else grade = 'F';
+
+            document.getElementById('result').innerHTML = `
+                Average Score: ${average.toFixed(2)}<br>
+                Grade: ${grade}
+            `;
+        }
+    </script>
+</body>
+</html>
